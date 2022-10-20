@@ -10,4 +10,8 @@ public class CalculatorApplication {
         SpringApplication.run(CalculatorApplication.class, args);
     }
 
+    public static int calculate(String input){
+        return 0;
+    }
+
 }

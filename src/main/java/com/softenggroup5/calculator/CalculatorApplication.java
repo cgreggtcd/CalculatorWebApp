@@ -7,9 +7,9 @@ import java.util.Scanner;
 import java.util.Stack;
 
 @SpringBootApplication
-public class CalculatorApplication {
+public class App {
     public static void main(String[] args) {
-        SpringApplication.run(CalculatorApplication.class, args);
+        SpringApplication.run(App.class, args);
         boolean exit = false;
         while (!exit) {
             System.out.println("Enter the numeric expression you would like to evaluate: ");

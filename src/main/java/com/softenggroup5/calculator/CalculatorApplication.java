@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -39,16 +41,20 @@ class Calculation {
 
 @Controller
 class CalculateController {
-
-    @GetMapping("/calculator")
-    public String calculatorForm(Model model) {
-        model.addAttribute("calculator", new Calculation());
-        return "calculator";
-    }
+    private List<String> solutions = new ArrayList<>();
+    private double solution = Double.NaN;
 
     @PostMapping("/calculator")
-    public String greetingSubmit(@ModelAttribute Calculation calculation, Model model) {
-        model.addAttribute("calculator", calculation);
-        return "result";
+    public String calculatorForm(String expression) {
+        solution = CalculatorApplication.calculate(expression);
+        solutions.add(Double.toString(solution));
+        return "redirect:/calculator";
+    }
+
+    @GetMapping("/calculator")
+    public String calculatorSubmit(Model model) {
+        model.addAttribute("solution", solution);
+        System.out.println("Solution: "+ solution);
+        return "calculator";
     }
 }

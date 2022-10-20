@@ -6,9 +6,13 @@
 </head>
 <body>
 <h1>Calculate:</h1>
-<form action="#" th:action="@{/calculator}" th:object="${calculator}" method="post">
-  <p>Expression: <input type="text" th:field="*{expression}" /></p>
-  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+<form action="#" th:action="@{/calculator}" method="post">
+  <p>Expression: <input name="expression" /></p>
+  <p><input type="submit" value="Submit" /></p>
 </form>
+<br>
+<p>Solution:
+  <span th:text="${solution}"></span>
+</p>
 </body>
 </html>

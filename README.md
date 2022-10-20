@@ -6,7 +6,7 @@ Run this webapp (pre-release) by cloning the repository and opening the terminal
 
     ./mvnw spring-boot:run
 
-You can then open the current version on localhost:8080 in your browser. To run the tests, run
+You can then open the current version on localhost:8080/calculator in your browser. To run the tests, run
 
     mvn test
         

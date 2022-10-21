@@ -49,5 +49,8 @@ public class CalculatorTests
         // Other tests
         assertFalse(Calculator.isValid("exp()"));
         assertFalse(Calculator.isValid("log()"));
+
+        // Test top level function
+        assertEquals("That input is not valid. Please try again.", Calculator.calculate("This should fail."));
     }
 }

@@ -24,7 +24,24 @@ public class Calculator {
             return false;
         }
 
+        if(!validBrackets(input)){
+            return false;
+        }
+
         return true;
+    }
+
+    private static boolean validBrackets(String input){
+        int openBracketsCount = 0;
+        int closeBracketsCount = 0;
+        for (int index = 0; index < input.length(); index++){
+            if (input.charAt(index) == '('){
+                openBracketsCount++;
+            } else if (input.charAt(index) == ')') {
+                closeBracketsCount++;
+            }
+        }
+        return openBracketsCount == closeBracketsCount;
     }
 
     private static boolean validAlpha(String input){

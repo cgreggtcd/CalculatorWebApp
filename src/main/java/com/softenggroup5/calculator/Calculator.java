@@ -21,10 +21,6 @@ public class Calculator {
             return false;
         }
 
-        if (!validAlpha(input)){
-            return false;
-        }
-
         // Check for double operators/.
         // The expressions which would be invalid do not include +-, *-, /-, ^-
         Pattern doubleOperator = Pattern.compile("([+*/^]|-)[+*/^]");
@@ -38,6 +34,17 @@ public class Calculator {
         Pattern operatorBracket = Pattern.compile("([(][*/^])|(([+*/^]|-)[)])");
         matcher = operatorBracket.matcher(input);
         if (matcher.find()){
+            return false;
+        }
+
+        // Check for any time a decimal point (.) does not have numbers on both sides
+        Pattern decimalAlone = Pattern.compile("[^\\d]\\.[^\\d]");
+        matcher = decimalAlone.matcher(input);
+        if (matcher.find() || input.equals(".")){
+            return false;
+        }
+
+        if (!validAlpha(input)){
             return false;
         }
 

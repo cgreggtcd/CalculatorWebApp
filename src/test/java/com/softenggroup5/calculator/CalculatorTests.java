@@ -44,6 +44,7 @@ public class CalculatorTests
         assertFalse(Calculator.isValid("7-"));
         assertFalse(Calculator.isValid("^90"));
         assertFalse(Calculator.isValid("."));
+        assertFalse(Calculator.isValid("*./"));
 
         // Other tests
         assertFalse(Calculator.isValid("exp()"));

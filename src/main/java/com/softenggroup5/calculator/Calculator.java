@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Calculator {
+
     // This returns a string so that errors, ints, and doubles can be returned from the same function.
     // Lower level functions can return different types. This is the only one which should be called outside testing.
     public static String calculate(String input){
@@ -14,6 +15,15 @@ public class Calculator {
         if (!validAlpha(input)){
             return false;
         }
+
+        // Check for double operators/.
+        // The expressions which would be invalid do not include +-, *-, /-, ^-
+        Pattern pattern = Pattern.compile("([+*/^]|-)[+*/^]");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find() || input.contains("--") || input.contains("..")){
+            return false;
+        }
+
         return true;
     }
 

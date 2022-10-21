@@ -6,4 +6,9 @@ public class Calculator {
     public static String calculate(String input){
         return "0";
     }
+
+    public static boolean isValid(String input){
+        //Pattern valid = Pattern.compile("[^0-9+*-]");
+        return true;
+    }
 }

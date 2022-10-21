@@ -17,6 +17,6 @@ public class CalculatorApplicationTests
 
     @Test
     void testCalculate() {
-        assertEquals(0, CalculatorApplication.calculate(""));
+        assertEquals("0", Calculator.calculate(""));
     }
 }

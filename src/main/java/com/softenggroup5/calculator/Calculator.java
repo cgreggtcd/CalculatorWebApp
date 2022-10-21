@@ -1,5 +1,7 @@
 package com.softenggroup5.calculator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +14,13 @@ public class Calculator {
     }
 
     public static boolean isValid(String input){
+        // Check if input starts or ends with an invalid operator
+        ArrayList<Character> invalidStartingOps = new ArrayList<>(Arrays.asList('*', '/', '^'));
+        ArrayList<Character> invalidEndingOps = new ArrayList<>(Arrays.asList('+', '-', '*', '/', '^'));
+        if (invalidStartingOps.contains(input.charAt(0)) || invalidEndingOps.contains(input.charAt(input.length()-1))){
+            return false;
+        }
+
         if (!validAlpha(input)){
             return false;
         }

@@ -76,6 +76,13 @@ public class Calculator {
                 if (checkStringNotAtIndex(input, "exp(", matcher.start())) {
                     return false;
                 }
+                // Check if it is exp(<anything other than number or (>
+                String nextChar = Character.toString(input.charAt(matcher.start() + 4));
+                Pattern invalidChar = Pattern.compile("[^0-9(]");
+                Matcher charMatcher = invalidChar.matcher(nextChar);
+                if (charMatcher.find()){
+                    return false;
+                }
                 // skip x and p
                 for(int i = 0; i < 2; i++){
                     matcher.find();
@@ -83,6 +90,13 @@ public class Calculator {
             }
             else if (matcher.group().equals("l")){
                 if (checkStringNotAtIndex(input, "log(", matcher.start())) {
+                    return false;
+                }
+                // Check if it is log(<anything other than number or (>
+                String nextChar = Character.toString(input.charAt(matcher.start() + 4));
+                Pattern invalidChar = Pattern.compile("[^0-9(]");
+                Matcher charMatcher = invalidChar.matcher(nextChar);
+                if (charMatcher.find()){
                     return false;
                 }
                 // skip o and g

@@ -18,9 +18,17 @@ public class Calculator {
 
         // Check for double operators/.
         // The expressions which would be invalid do not include +-, *-, /-, ^-
-        Pattern pattern = Pattern.compile("([+*/^]|-)[+*/^]");
-        Matcher matcher = pattern.matcher(input);
+        Pattern doubleOperator = Pattern.compile("([+*/^]|-)[+*/^]");
+        Matcher matcher = doubleOperator.matcher(input);
         if (matcher.find() || input.contains("--") || input.contains("..")){
+            return false;
+        }
+
+        // Check for any time an open bracket is followed by *, /, or ^,
+        // and any time a closed bracket is preceded by +, - , *, /, or ^
+        Pattern operatorBracket = Pattern.compile("([(][*/^])|(([+*/^]|-)[)])");
+        matcher = operatorBracket.matcher(input);
+        if (matcher.find()){
             return false;
         }
 

@@ -19,7 +19,7 @@ public class Calculator {
     public static boolean isValid(String input){
         // Check if input starts or ends with an invalid operator
         ArrayList<Character> invalidStartingOps = new ArrayList<>(Arrays.asList('*', '/', '^'));
-        ArrayList<Character> invalidEndingOps = new ArrayList<>(Arrays.asList('+', '-', '*', '/', '^'));
+        ArrayList<Character> invalidEndingOps = new ArrayList<>(Arrays.asList('+', '-', '*', '/'));//, '^'));
         if (invalidStartingOps.contains(input.charAt(0)) || invalidEndingOps.contains(input.charAt(input.length()-1))){
             return false;
         }
@@ -34,11 +34,12 @@ public class Calculator {
 
         // Check for any time an open bracket is followed by *, /, or ^,
         // and any time a closed bracket is preceded by +, - , *, /, or ^
-        Pattern operatorBracket = Pattern.compile("([(][*/^])|(([+*/^]|-)[)])");
-        matcher = operatorBracket.matcher(input);
+        //Pattern operatorBracket = Pattern.compile("([(][*/^])|(([+*/^]|-)[)])");
+        /*matcher = operatorBracket.matcher(input);
         if (matcher.find()){
             return false;
         }
+        */
 
         // Check for any time a decimal point (.) does not have numbers on both sides
         Pattern decimalAlone = Pattern.compile("[^\\d]\\.[^\\d]");
@@ -55,7 +56,7 @@ public class Calculator {
     }
 
     private static boolean validBrackets(String input){
-        int openBracketsCount = 0;
+        /*int openBracketsCount = 0;
         int closeBracketsCount = 0;
         for (int index = 0; index < input.length(); index++){
             if (input.charAt(index) == '('){
@@ -64,12 +65,16 @@ public class Calculator {
                 closeBracketsCount++;
             }
         }
-        return openBracketsCount == closeBracketsCount;
+        return openBracketsCount == closeBracketsCount;*/
+        Pattern bracket = Pattern.compile("[()]");
+        Matcher matcher = bracket.matcher(input);
+        return !matcher.find();
     }
 
     private static boolean validAlpha(String input){
         Pattern alpha = Pattern.compile("[a-zA-Z]");
         Matcher matcher = alpha.matcher(input);
+        /*
         while (matcher.find()){
             if (matcher.group().equals("e")){
                 if (checkStringNotAtIndex(input, "exp(", matcher.start())) {
@@ -107,7 +112,8 @@ public class Calculator {
                 return false;
             }
         }
-        return true;
+        return true;*/
+        return !matcher.find();
     }
 
     private static boolean checkStringNotAtIndex(String input, String match, int index) {

@@ -14,6 +14,27 @@ public class CalculatorTests
     }
 
     @Test
+    void testOrderOfOperations() {
+        assertEquals("7", Calculator.calculate("1+2*3"));
+        assertEquals("0", Calculator.calculate("1+2-3"));
+        assertEquals("11", Calculator.calculate("3*4-1"));
+        assertEquals("2", Calculator.calculate("1-2+3"));
+        assertEquals("0", Calculator.calculate("-1-2+3"));
+        assertEquals("-2", Calculator.calculate("-1+2-3"));
+        assertEquals("-23", Calculator.calculate("8+6-7*4+3-2*6"));
+        assertEquals("-76396", Calculator.calculate("12435+34569-12345*10+50"));
+        assertEquals("-2335046", Calculator.calculate("697*1884-7034*519+2452"));
+        assertEquals("-5525864", Calculator.calculate("-20-662-1417*3899-299"));
+        assertEquals("3497", Calculator.calculate("-4002+763*7+2158"));
+        assertEquals("8", Calculator.calculate("1.0+2*3.5"));
+        assertEquals("0.78", Calculator.calculate("1+2.78-3"));
+        assertEquals("-0.031", Calculator.calculate("3.876/4-1")); // This may need to be changed based on number of decimal places
+        assertEquals("2", Calculator.calculate("1-2+3"));
+        assertEquals("0.1", Calculator.calculate("-0.9-2+3"));
+        assertEquals("-35.742857", Calculator.calculate("8.8/7-7*4+3.0/-2*6")); // This may need to be changed based on number of decimal places
+    }
+
+    @Test
     void testIsValid() {
         // Valid expressions
         assertTrue(Calculator.isValid("1+2+3+4"));

@@ -28,10 +28,10 @@ public class CalculatorTests
         assertEquals("3497.0", Calculator.calculate("-4002+763*7+2158"));
         assertEquals("8.0", Calculator.calculate("1.0+2*3.5"));
         assertEquals("0.78", Calculator.calculate("1+2.78-3"));
-        assertEquals("-0.031", Calculator.calculate("3.876/4-1")); // This may need to be changed based on number of decimal places
+        assertEquals("-0.031", Calculator.calculate("3.876/4-1")); 
         assertEquals("2.0", Calculator.calculate("1-2+3"));
         assertEquals("0.1", Calculator.calculate("-0.9-2+3"));
-        assertEquals("-35.742857", Calculator.calculate("8.8/7-7*4+3.0/-2*6")); // This may need to be changed based on number of decimal places
+        assertEquals("-35.743", Calculator.calculate("8.8/7-7*4+3.0/-2*6"));
     }
 
     @Test

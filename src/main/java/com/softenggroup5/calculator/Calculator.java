@@ -72,9 +72,9 @@ public class Calculator {
     If '+' is on top of stack and '-' is the current operator, we will pop off '+' and append it to the string since associativity of these
     two operators is read from left to right and '+' we encountered first in the infix string.
     */
-    public static int precedence(char c) {
-        if (c == '-') return 1;
-        else return 2;
+    public static int precedence(char c) { 
+        if (c == '+' | c == '-') return 1;
+        else return 2; 
     }
 
     /*
@@ -99,6 +99,8 @@ public class Calculator {
 
                 if (c == '-') result = op1 - op2;
                 else if (c == '/') result = op1 / op2;
+                else if (c == '+') result = op1 + op2;
+                else if (c == '*') result = op1 * op2;
                 stack.push(result);                                        //Push result onto stack
             } else if (Character.isDigit(c)) {
                 StringBuilder sb = new StringBuilder();
@@ -119,9 +121,9 @@ public class Calculator {
     /*
     Checks if character is one of the three operators
     */
-    public static boolean isOperator(char c) {
-        if (c == '-' || c == '/') return true;
-        else return false;
+    public static boolean isOperator(char c) { 
+        if (c == '-' || c == '/' || c == '+' || c == '*') return true;
+        else return false; 
     }
     public static boolean isValid(String input){
         // Check if input starts or ends with an invalid operator

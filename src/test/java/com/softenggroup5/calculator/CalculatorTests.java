@@ -11,9 +11,23 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CalculatorTests
 {
     @Test
-    void testCalculate() {
-        assertEquals("0", Calculator.calculate("0"));
-    }
+    void testCalculate() { 
+        assertEquals("0.0", Calculator.calculate("0+0")); //test zero case
+        assertEquals("100.1", Calculator.calculate("99+0+1.1")); //test zero addition case
+        assertEquals("10.0", Calculator.calculate("1+2+3+4")); //test normal integer case
+        assertEquals("25098.0", Calculator.calculate("12345+12446+1+306")); //test big integer case
+        assertEquals("4.66", Calculator.calculate("1.22+1.33+2.11")); //test normal floating number case
+        assertEquals("7136.16", Calculator.calculate("234.66+6789.7+34+77.8")); //test big floating number case
+        assertEquals("0.0", Calculator.calculate("0*0")); //test multiplication zero case
+        assertEquals("0.0", Calculator.calculate("0*768*899.79*99.9765")); //test zero case multiply
+        assertEquals("576.0", Calculator.calculate("12*2*4*6")); //test normal multiplication
+        assertEquals("3343.044", Calculator.calculate("1.22*456.7*6")); //test big floating number case
+        assertEquals("2385.0", Calculator.calculate("8+7*2+56*40+123")); //test normal addition and multiplication case
+        assertEquals("144915.0", Calculator.calculate("789+456+4789*30+765*0")); //test addition and multiplication case
+        assertEquals("923.52", Calculator.calculate("1.3+4.22+765*1.2")); //test complex addition and multiplication case
+        assertEquals("4899.22", Calculator.calculate("1.333*0+765*6.4+3.22")); // test complex addition and multiplication case
+        assertEquals("1295.8", Calculator.calculate("12345-11456+99*8.6-456+8.2+6.4/2")); //test complex calculation
+	}
 
     @Test
     void testIsValid() {

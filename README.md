@@ -16,3 +16,8 @@ Then, to run the app:
 
     docker run --name=calculator-web-app-container --rm -d -p 8080:8080 calculator-image 
 
+If you want to run the latest release from DockerHub (currently release 1), run:
+
+    docker run --name=calculator-web-app-container --rm -d -p 8080:8080 clairegregg/calculator-web-app:basic-cal
+
+Then, you can open that on localhost:8080/calculator.

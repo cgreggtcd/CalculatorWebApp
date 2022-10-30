@@ -191,7 +191,7 @@ public class Calculator {
     private static boolean validAlpha(String input){
         Pattern alpha = Pattern.compile("[a-zA-Z]");
         Matcher matcher = alpha.matcher(input);
-        /*
+
         while (matcher.find()){
             if (matcher.group().equals("e")){
                 if (checkStringNotAtIndex(input, "exp(", matcher.start())) {
@@ -209,6 +209,7 @@ public class Calculator {
                     matcher.find();
                 }
             }
+            /*
             else if (matcher.group().equals("l")){
                 if (checkStringNotAtIndex(input, "log(", matcher.start())) {
                     return false;
@@ -224,13 +225,12 @@ public class Calculator {
                 for(int i = 0; i < 2; i++){
                     matcher.find();
                 }
-            }
+            }*/
             else {
                 return false;
             }
         }
-        return true;*/
-        return !matcher.find();
+        return true;
     }
 
     private static boolean checkStringNotAtIndex(String input, String match, int index) {

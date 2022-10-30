@@ -3,10 +3,9 @@ package com.softenggroup5.calculator;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Scanner;
-import java.util.Stack;
 
 public class Calculator {
 
@@ -128,7 +127,7 @@ public class Calculator {
     public static boolean isValid(String input){
         // Check if input starts or ends with an invalid operator
         ArrayList<Character> invalidStartingOps = new ArrayList<>(Arrays.asList('*', '/', '^'));
-        ArrayList<Character> invalidEndingOps = new ArrayList<>(Arrays.asList('+', '-', '*', '/'));//, '^'));
+        ArrayList<Character> invalidEndingOps = new ArrayList<>(Arrays.asList('+', '-', '*', '/'));//, '^')); //uncomment this when adding power
         if (invalidStartingOps.contains(input.charAt(0)) || invalidEndingOps.contains(input.charAt(input.length()-1))){
             return false;
         }
@@ -143,6 +142,7 @@ public class Calculator {
 
         // Check for any time an open bracket is followed by *, /, or ^,
         // and any time a closed bracket is preceded by +, - , *, /, or ^
+        // Uncomment this when adding brackets
         //Pattern operatorBracket = Pattern.compile("([(][*/^])|(([+*/^]|-)[)])");
         /*matcher = operatorBracket.matcher(input);
         if (matcher.find()){
@@ -165,6 +165,7 @@ public class Calculator {
     }
 
     private static boolean validBrackets(String input){
+        // Uncomment this when adding bracket functionality
         /*int openBracketsCount = 0;
         int closeBracketsCount = 0;
         for (int index = 0; index < input.length(); index++){
@@ -175,6 +176,8 @@ public class Calculator {
             }
         }
         return openBracketsCount == closeBracketsCount;*/
+
+        //Remove this when adding bracket functionality
         Pattern bracket = Pattern.compile("[()]");
         Matcher matcher = bracket.matcher(input);
         return !matcher.find();

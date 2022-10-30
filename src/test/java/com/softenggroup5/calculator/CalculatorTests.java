@@ -50,6 +50,7 @@ public class CalculatorTests
         assertEquals("-35.743", Calculator.calculate("8.8/7-7*4+3.0/-2*6"));
     }
 
+    // Please uncomment relevant tests when you implement functionality for them (brackets, ^, log and exp)
     @Test
     void testIsValid() {
         // Valid expressions

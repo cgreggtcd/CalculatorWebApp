@@ -154,13 +154,12 @@ public class Calculator {
 
         // Check for any time an open bracket is followed by *, /, or ^,
         // and any time a closed bracket is preceded by +, - , *, /, or ^
-        // Uncomment this when adding brackets
-        //Pattern operatorBracket = Pattern.compile("([(][*/^])|(([+*/^]|-)[)])");
-        /*matcher = operatorBracket.matcher(input);
+        Pattern operatorBracket = Pattern.compile("([(][*/^])|(([+*/^]|-)[)])");
+        matcher = operatorBracket.matcher(input);
         if (matcher.find()){
             return false;
         }
-        */
+
 
         // Check for any time a decimal point (.) does not have numbers on both sides
         Pattern decimalAlone = Pattern.compile("[^\\d]\\.[^\\d]");
@@ -177,8 +176,7 @@ public class Calculator {
     }
 
     private static boolean validBrackets(String input){
-        // Uncomment this when adding bracket functionality
-        /*int openBracketsCount = 0;
+        int openBracketsCount = 0;
         int closeBracketsCount = 0;
         for (int index = 0; index < input.length(); index++){
             if (input.charAt(index) == '('){
@@ -187,12 +185,7 @@ public class Calculator {
                 closeBracketsCount++;
             }
         }
-        return openBracketsCount == closeBracketsCount;*/
-
-        //Remove this when adding bracket functionality
-        Pattern bracket = Pattern.compile("[()]");
-        Matcher matcher = bracket.matcher(input);
-        return !matcher.find();
+        return openBracketsCount == closeBracketsCount;
     }
 
     private static boolean validAlpha(String input){

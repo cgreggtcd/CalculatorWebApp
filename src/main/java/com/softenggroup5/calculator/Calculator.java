@@ -83,7 +83,7 @@ public class Calculator {
     */
     public static int precedence(char c) {
         if (c == '+' | c == '-') return 1;
-        else if(c == '*' || c == '/') return 2;
+        else if(c == '*' || c == '/' || c == '^') return 2;
         else return -1;
     }
 
@@ -111,6 +111,7 @@ public class Calculator {
                 else if (c == '/') result = op1 / op2;
                 else if (c == '+') result = op1 + op2;
                 else if (c == '*') result = op1 * op2;
+                else if (c == '^') result = Pow(op1, op2);
                 stack.push(result);                                        //Push result onto stack
             }
             else if (Character.isDigit(c)) {
@@ -129,17 +130,24 @@ public class Calculator {
         DecimalFormat df = new DecimalFormat("#.###");
         return Float.toString(Float.parseFloat(df.format(stack.pop())));
     }
+    
+    public static float Pow(float x, float p) {
+        double dblResult = Math.pow(x, p);
+        float floatResult = (float)dblResult;
+        return floatResult;
+    }
+    
     /*
     Checks if character is one of the three operators
     */
     public static boolean isOperator(char c) {
-        if (c == '-' || c == '/' || c == '+' || c == '*') return true;
+        if (c == '-' || c == '/' || c == '+' || c == '*' || c == '^') return true;
         else return false;
     }
     public static boolean isValid(String input){
         // Check if input starts or ends with an invalid operator
         ArrayList<Character> invalidStartingOps = new ArrayList<>(Arrays.asList('*', '/', '^'));
-        ArrayList<Character> invalidEndingOps = new ArrayList<>(Arrays.asList('+', '-', '*', '/'));//, '^')); //uncomment this when adding power
+        ArrayList<Character> invalidEndingOps = new ArrayList<>(Arrays.asList('+', '-', '*', '/', '^'));
         if (invalidStartingOps.contains(input.charAt(0)) || invalidEndingOps.contains(input.charAt(input.length()-1))){
             return false;
         }

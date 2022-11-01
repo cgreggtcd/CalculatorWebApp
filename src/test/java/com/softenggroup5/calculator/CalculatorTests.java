@@ -27,6 +27,17 @@ public class CalculatorTests
         assertEquals("923.52", Calculator.calculate("1.3+4.22+765*1.2")); //test complex addition and multiplication case
         assertEquals("4899.22", Calculator.calculate("1.333*0+765*6.4+3.22")); // test complex addition and multiplication case
         assertEquals("1295.8", Calculator.calculate("12345-11456+99*8.6-456+8.2+6.4/2")); //test complex calculation
+        assertEquals("1.0", Calculator.calculate("0^0")); //test zero case
+        assertEquals("1.0", Calculator.calculate("12^0"));
+        assertEquals("1.0", Calculator.calculate("1.232^0"));
+        assertEquals("6.25", Calculator.calculate("2^-2+6"));
+        assertEquals("30.248", Calculator.calculate("2^-2+6-8^-3+9*3-6/2"));
+        assertEquals("35.0", Calculator.calculate("3^3+9-2^0"));
+        assertEquals("15.0", Calculator.calculate("2^3+9-2"));
+        assertEquals("19.448", Calculator.calculate("2.2^3+9-2.2+4/2"));
+        assertEquals("-2.512", Calculator.calculate("1.22^2+12-6*3+4/2")); //test complex calculation
+        assertEquals("-3.503", Calculator.calculate("2^1.2+12-6*3+4/2-3^2-1*6+12.2+3.6789^0")); //test complex calculation
+        assertEquals("29.487", Calculator.calculate("2^1.2+3-2+5^-2+8*3-6/3+6^-0+3.15")); //test complex calculation
 	}
 
     @Test
@@ -61,7 +72,7 @@ public class CalculatorTests
         assertTrue(Calculator.isValid("9.0/874.5"));
         assertTrue(Calculator.isValid("-7"));
         assertTrue(Calculator.isValid("-7+-8"));
-        //assertTrue(Calculator.isValid("8^-0"));
+        assertTrue(Calculator.isValid("8^-0"));
 
         // Invalid repetition of operators/etc
         assertFalse(Calculator.isValid("-....."));
@@ -96,6 +107,18 @@ public class CalculatorTests
         String postfix = Calculator.convertToPostfix("2.54+3.34+4.3");
         String correctPostfix = "2.54 3.34 + 4.3 + ";
         assertEquals(correctPostfix, postfix);
+        
+        postfix = Calculator.convertToPostfix("3^(1+2)");
+        correctPostfix = "3 1 2 + ^ ";
+        assertEquals(correctPostfix, postfix);
+        
+        postfix = Calculator.convertToPostfix("3.1^(1+2)+2.3");
+        correctPostfix = "3.1 1 2 + ^ 2.3 + ";
+        assertEquals(correctPostfix, postfix);
+        
+        postfix = Calculator.convertToPostfix("3.1^(1+2)+2.3-5*2");
+        correctPostfix = "3.1 1 2 + ^ 2.3 + 5 2 * - ";
+        assertEquals(correctPostfix, postfix);
 
         postfix = Calculator.convertToPostfix("(2.54+3.34)+4.3");
         correctPostfix = "2.54 3.34 + 4.3 + ";
@@ -124,6 +147,23 @@ public class CalculatorTests
         postfix = Calculator.convertToPostfix("5.5*43/5+3.4");
         correctPostfix = "5.5 43 * 5 / 3.4 + ";
         assertEquals(correctPostfix, postfix);
+        
+        postfix = Calculator.convertToPostfix("5.6*(1+6)-2^(6+1)+1.2*6/3");
+        correctPostfix = "5.6 1 6 + * 2 6 1 + ^ - 1.2 6 * 3 / + ";
+        assertEquals(correctPostfix, postfix);
+        
+        postfix = Calculator.convertToPostfix("5.9*48/2+3.6+6^-2-2^1.2");
+        correctPostfix = "5.9 48 * 2 / 3.6 + 6 -2 ^ + 2 1.2 ^ - ";
+        assertEquals(correctPostfix, postfix);
+        
+        postfix = Calculator.convertToPostfix("2^(1+6)+36*5.2-6/2+2.1^2+8^-2+3.124^0+20*(1+6)-(7+1)/2+20*8.6+(9.88-2.65)*6");
+        correctPostfix = "2 1 6 + ^ 36 5.2 * + 6 2 / - 2.1 2 ^ + 8 -2 ^ + 3.124 0 ^ + 20 1 6 + * + 7 1 + 2 / - 20 8.6 * + 9.88 2.65 - 6 * + ";
+        assertEquals(correctPostfix, postfix);
+        
+        postfix = Calculator.convertToPostfix("5.2*26/6+3.6+6^-2-2^1.2+9/3.6-2*200+3.67+2^0-1000+20*200*60000");
+        correctPostfix = "5.2 26 * 6 / 3.6 + 6 -2 ^ + 2 1.2 ^ - 9 3.6 / + 2 200 * - 3.67 + 2 0 ^ + 1000 - 20 200 * 60000 * + ";
+        assertEquals(correctPostfix, postfix);
+        
     }
     @Test
     public void evalPostfixTest() {
@@ -158,9 +198,19 @@ public class CalculatorTests
         result = Calculator.evaluatePostfix("2.432 3.3 * 4.4 - ");
         correct = "3.626";
         assertEquals(correct, result);
+        
+        result = Calculator.evaluatePostfix("2.66 6.9 * 5.9 - 2 3 ^ + ");
+        correct = "20.454";
+        assertEquals(correct, result);
+        
+        result = Calculator.evaluatePostfix("2.66 6 * 5.9 - 6 3 ^ + 20 10 * 1000 * + 2 1.2 ^ + 3.2 2 ^ - 6 2 / + 8 -2 ^ + 6 -3 ^ + ");
+        correct = "200221.14";
+        assertEquals(correct, result);
+        
     }
+
     @ParameterizedTest
-    @ValueSource(chars = {'+', '-', '*', '/'})
+    @ValueSource(chars = {'+', '-', '*', '/', '^'})
     public void isOperatorTest(char input) {
         boolean result = Calculator.isOperator(input);
         assertEquals(true, result);
@@ -172,6 +222,4 @@ public class CalculatorTests
         assertEquals(false, result);
     }
 }
-
-
 

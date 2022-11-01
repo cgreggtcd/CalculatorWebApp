@@ -97,6 +97,18 @@ public class CalculatorTests
         String correctPostfix = "2.54 3.34 + 4.3 + ";
         assertEquals(correctPostfix, postfix);
 
+        postfix = Calculator.convertToPostfix("(2.54+3.34)+4.3");
+        correctPostfix = "2.54 3.34 + 4.3 + ";
+        assertEquals(correctPostfix, postfix);
+
+        postfix = Calculator.convertToPostfix("5*(3+2)-5+2");
+        correctPostfix = "5 3 2 + * 5 - 2 + "; // 22
+        assertEquals(correctPostfix, postfix);
+
+        postfix = Calculator.convertToPostfix("(5*3+2*(-5+2))");
+        correctPostfix = "5 3 * 2 -5 2 + * + "; // 9
+        assertEquals(correctPostfix, postfix);
+
         postfix = Calculator.convertToPostfix("2.432*3.3-4.4");
         correctPostfix = "2.432 3.3 * 4.4 - ";
         assertEquals(correctPostfix, postfix);
@@ -117,6 +129,14 @@ public class CalculatorTests
     public void evalPostfixTest() {
         String result = Calculator.evaluatePostfix("2 3 + 4 +");
         String correct = "9.0";
+        assertEquals(correct, result);
+
+        result = Calculator.evaluatePostfix("5 3 2 + * 5 - 2 + ");
+        correct = "22.0";
+        assertEquals(correct, result);
+
+        result = Calculator.evaluatePostfix("5 3 * 2 -5 2 + * + ");
+        correct = "9.0";
         assertEquals(correct, result);
 
         result = Calculator.evaluatePostfix("2 3 * 4 - 0 - 3 - 5 - 2 + 10 20 * + 4 100 * 10000 * - ");

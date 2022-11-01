@@ -40,7 +40,7 @@ public class Calculator {
                 if(c == '-'){
                     int s = i-1;
                     if(s>-1) {
-                        if (isOperator(infix.charAt(s))){
+                        if (isOperator(infix.charAt(s)) || infix.charAt(s) == '('){
                             postfix.append(c);
                             continue;
                         }
@@ -57,23 +57,34 @@ public class Calculator {
                 }
                 stack.push(c);
             }
+            else if (c == '(') stack.push(c);
+            else if (c == ')'){
+                while(!stack.isEmpty() && stack.peek()!= '('){
+                    postfix.append(' ');
+                    postfix.append(stack.pop());
+                }
+                stack.pop();
+            }
         }
         postfix.append(' ');
         while (!stack.isEmpty()) {
+            if(stack.peek() == '(') return "Error!";
             postfix.append(stack.pop());
             postfix.append(' ');
         }
         return postfix.toString();
     }
 
+
     /*
     Deduces the precedence of operators. Multiplication has a precedence of 2, whereas addition and subtraction have a precedence of 1.
     If '+' is on top of stack and '-' is the current operator, we will pop off '+' and append it to the string since associativity of these
     two operators is read from left to right and '+' we encountered first in the infix string.
     */
-    public static int precedence(char c) { 
+    public static int precedence(char c) {
         if (c == '+' | c == '-') return 1;
-        else return 2; 
+        else if(c == '*' || c == '/') return 2;
+        else return -1;
     }
 
     /*
@@ -101,7 +112,8 @@ public class Calculator {
                 else if (c == '+') result = op1 + op2;
                 else if (c == '*') result = op1 * op2;
                 stack.push(result);                                        //Push result onto stack
-            } else if (Character.isDigit(c)) {
+            }
+            else if (Character.isDigit(c)) {
                 StringBuilder sb = new StringBuilder();
                 int s = i-1;
                 if(s>-1) {
@@ -120,9 +132,9 @@ public class Calculator {
     /*
     Checks if character is one of the three operators
     */
-    public static boolean isOperator(char c) { 
+    public static boolean isOperator(char c) {
         if (c == '-' || c == '/' || c == '+' || c == '*') return true;
-        else return false; 
+        else return false;
     }
     public static boolean isValid(String input){
         // Check if input starts or ends with an invalid operator

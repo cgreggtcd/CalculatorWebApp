@@ -27,6 +27,13 @@ public class CalculatorTests
         assertEquals("923.52", Calculator.calculate("1.3+4.22+765*1.2")); //test complex addition and multiplication case
         assertEquals("4899.22", Calculator.calculate("1.333*0+765*6.4+3.22")); // test complex addition and multiplication case
         assertEquals("1295.8", Calculator.calculate("12345-11456+99*8.6-456+8.2+6.4/2")); //test complex calculation
+
+        // Test log
+        assertEquals("0.693", Calculator.calculate("log(2)"));
+        assertEquals("0.712", Calculator.calculate("log(5+6)/7*(log(8/1))"));
+        assertEquals("7.0", Calculator.calculate("7+8*(log(1))"));
+        assertEquals("2.068", Calculator.calculate("log(8+log(3/5)/log(4*76))"));
+        assertEquals("Error: Log of 0 is undefined", Calculator.calculate("log(0)"));
 	}
 
     @Test
@@ -57,7 +64,7 @@ public class CalculatorTests
         assertTrue(Calculator.isValid("1+2+3+4"));
         //assertTrue(Calculator.isValid("(1+2)*3-4^5/6"));
         //assertTrue(Calculator.isValid("exp(1)"));
-        //assertTrue(Calculator.isValid("log(1.0)"));
+        assertTrue(Calculator.isValid("log(1.0)"));
         assertTrue(Calculator.isValid("9.0/874.5"));
         assertTrue(Calculator.isValid("-7"));
         assertTrue(Calculator.isValid("-7+-8"));
@@ -123,6 +130,14 @@ public class CalculatorTests
 
         postfix = Calculator.convertToPostfix("5.5*43/5+3.4");
         correctPostfix = "5.5 43 * 5 / 3.4 + ";
+        assertEquals(correctPostfix, postfix);
+
+        postfix = Calculator.convertToPostfix("log(2.54+3.34)+4.3");
+        correctPostfix = "1.772 4.3 + ";
+        assertEquals(correctPostfix, postfix);
+
+        postfix = Calculator.convertToPostfix("5*3+2-5+log(2)");
+        correctPostfix = "5 3 * 2 + 5 - 0.693 + ";
         assertEquals(correctPostfix, postfix);
     }
     @Test

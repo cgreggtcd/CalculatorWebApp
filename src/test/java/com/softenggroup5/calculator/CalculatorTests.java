@@ -39,8 +39,9 @@ public class CalculatorTests
         assertEquals("2.718", Calculator.calculate("exp(1)"));
         assertEquals("1096.633", Calculator.calculate("exp(1+6)"));
         assertEquals("0.027", Calculator.calculate("80/exp(8)"));
-        assertEquals("65049.188", Calculator.calculate("99*(exp(exp(1+5)/45.9)+7)/10"));
-        assertEquals("1", Calculator.calculate("exp(0)"));
+        assertEquals("8.789", Calculator.calculate("exp(1+5)/45.9"));
+        assertEquals("5913.561", Calculator.calculate("9*(exp(exp(1+5)/45.9)+7)/10"));
+        assertEquals("1.0", Calculator.calculate("exp(0)"));
 	}
 
     @Test
@@ -140,19 +141,19 @@ public class CalculatorTests
         assertEquals(correctPostfix, postfix);
 
         postfix = Calculator.convertToPostfix("log(2.54+3.34)+4.3");
-        correctPostfix = "1.772 4.3 + ";
+        correctPostfix = "1.7715567619105355 4.3 + ";
         assertEquals(correctPostfix, postfix);
 
         postfix = Calculator.convertToPostfix("5*3+2-5+log(2)");
-        correctPostfix = "5 3 * 2 + 5 - 0.693 + ";
+        correctPostfix = "5 3 * 2 + 5 - 0.6931471805599453 + ";
         assertEquals(correctPostfix, postfix);
 
         postfix = Calculator.convertToPostfix("5*3+2-5+exp(4.0)");
-        correctPostfix = "5 3 * 2 + 5 - 54.598 + ";
+        correctPostfix = "5 3 * 2 + 5 - 54.598150033144236 + ";
         assertEquals(correctPostfix, postfix);
 
         postfix = Calculator.convertToPostfix("exp(2.54+3.34)+4.3");
-        correctPostfix = "357.809 4.3 + ";
+        correctPostfix = "357.80924170885254 4.3 + ";
         assertEquals(correctPostfix, postfix);
     }
     @Test

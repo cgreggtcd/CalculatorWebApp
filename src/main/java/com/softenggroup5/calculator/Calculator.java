@@ -7,6 +7,7 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Math.exp;
 import static java.lang.Math.log;
 
 public class Calculator {
@@ -70,9 +71,10 @@ public class Calculator {
                 }
                 stack.pop();
             }
-            // Dealing with log
-            else if (c == 'l') {
-                i += 4; // Skip o, g, and (
+            // Dealing with log/exp. These have the highest priority, and are calculated left to right.
+            else if (c == 'l' || c == 'e') {
+                char initChar = c;
+                i += 4; // Skip o/x, g/p, and (
                 int numberOfBracketsToClose = 1;
                 StringBuilder insideBrackets = new StringBuilder();
                 for (; i < infix.length(); i++){
@@ -82,13 +84,17 @@ public class Calculator {
                     if (numberOfBracketsToClose == 0) break;
                     insideBrackets.append(c);
                 }
-                String answer = evaluatePostfix(convertToPostfix(insideBrackets.toString()));
-                if (Double.parseDouble(answer) == 0.0) {
-                    return "Error: Log of 0 is undefined";
+                String answer = evaluatePostfix(convertToPostfix(insideBrackets.toString()), "#.#############");
+                double value;
+                if (initChar == 'l') { // If finding log
+                    if (Double.parseDouble(answer) == 0.0) {
+                        return "Error: Log of 0 is undefined";
+                    }
+                    value = log(Double.parseDouble(answer));
+                } else { // If finding exp
+                    value = exp(Double.parseDouble(answer));
                 }
-                double log = log(Double.parseDouble(answer));
-                log = Math.round(log*1000.0)/1000.0;
-                postfix.append(log);
+                postfix.append(value);
             }
         }
         postfix.append(' ');
@@ -118,6 +124,10 @@ public class Calculator {
     pushed onto the stack. After we have looped through the string, we pop off the last item on the stack since this is our answer/
      */
     public static String evaluatePostfix(String postfix) {
+        return evaluatePostfix(postfix, "#.###");
+    }
+
+    public static String evaluatePostfix(String postfix, String decimalPlaces) {
         Stack<Float> stack = new Stack<>();
         for (int i = 0; i < postfix.length(); i++) {
             char c = postfix.charAt(i);
@@ -151,7 +161,7 @@ public class Calculator {
                 stack.push(Float.parseFloat(sb.toString()));               //Multidigit operand pushed onto stack
             }
         }
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat(decimalPlaces);
         return Float.toString(Float.parseFloat(df.format(stack.pop())));
     }
     /*
@@ -224,7 +234,7 @@ public class Calculator {
                 }
                 // Check if it is exp(<anything other than number or (>
                 String nextChar = Character.toString(input.charAt(matcher.start() + 4));
-                Pattern invalidChar = Pattern.compile("[^0-9(]");
+                Pattern invalidChar = Pattern.compile("[^0-9(el]");
                 Matcher charMatcher = invalidChar.matcher(nextChar);
                 if (charMatcher.find()){
                     return false;

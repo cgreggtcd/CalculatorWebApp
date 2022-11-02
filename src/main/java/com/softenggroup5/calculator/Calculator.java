@@ -7,6 +7,8 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Math.log;
+
 public class Calculator {
 
     // This returns a string so that errors, ints, and doubles can be returned from the same function.
@@ -17,6 +19,9 @@ public class Calculator {
         }
         else{
             String postfix = convertToPostfix(input);
+            if (postfix.contains("Error")){
+                return postfix;
+            }
             return evaluatePostfix(postfix);
         }
     }
@@ -64,6 +69,26 @@ public class Calculator {
                     postfix.append(stack.pop());
                 }
                 stack.pop();
+            }
+            // Dealing with log
+            else if (c == 'l') {
+                i += 4; // Skip o, g, and (
+                int numberOfBracketsToClose = 1;
+                StringBuilder insideBrackets = new StringBuilder();
+                for (; i < infix.length(); i++){
+                    c = infix.charAt(i);
+                    if (c == '(') numberOfBracketsToClose++;
+                    else if (c == ')') numberOfBracketsToClose--;
+                    if (numberOfBracketsToClose == 0) break;
+                    insideBrackets.append(c);
+                }
+                String answer = evaluatePostfix(convertToPostfix(insideBrackets.toString()));
+                if (Double.parseDouble(answer) == 0.0) {
+                    return "Error: Log of 0 is undefined";
+                }
+                double log = log(Double.parseDouble(answer));
+                log = Math.round(log*1000.0)/1000.0;
+                postfix.append(log);
             }
         }
         postfix.append(' ');
@@ -209,7 +234,6 @@ public class Calculator {
                     matcher.find();
                 }
             }
-            /*
             else if (matcher.group().equals("l")){
                 if (checkStringNotAtIndex(input, "log(", matcher.start())) {
                     return false;
@@ -225,7 +249,7 @@ public class Calculator {
                 for(int i = 0; i < 2; i++){
                     matcher.find();
                 }
-            }*/
+            }
             else {
                 return false;
             }

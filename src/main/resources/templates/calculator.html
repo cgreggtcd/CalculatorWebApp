@@ -5,12 +5,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Calculate:</h1>
-<form action="#" th:action="@{/calculator}" method="post">
-  <p>Expression: <input name="expression" /></p>
-  <p><input type="submit" value="Submit" /></p>
-</form>
+<div align="center">
+  <h1>Web Calculator</h1>
+  <form action="#" th:action="@{/calculator}" method="post">
+    <p>Expression: <input name="expression" /></p>
+    <p><input type="submit" value="Calculate" /></p>
+  </form>
+</div>
 <br>
+<p style="color:#008080";>Welcome to the web calculator, hope you enjoy this!
+</p>
 <p>Solution:
   <span th:text="${solution}"></span>
 </p>

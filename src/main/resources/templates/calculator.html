@@ -1,22 +1,43 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <title>Calculator</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
 <body>
 <div align="center">
-  <h1>Web Calculator</h1>
+  <h1>Web Calculator App</h1>
+
+
+<font size="3" face="verdana">
+  <p style="color:#008080";>Welcome to the web calculator app!
+    <br>
+    <br>
+  <p style="color:#008080";>* Please ensure the expression inputted below is in infix notation which may contain brackets
+  <p style="color:#008080";>* Make sure to specify integer and floating-point numbers
+  </p>
+  </p>
+  </p>
+</font>
+  <br>
+  <br>
+  <br>
+
   <form action="#" th:action="@{/calculator}" method="post">
-    <p>Expression: <input name="expression" /></p>
+      <font size="4" face="verdana">
+        <p>Expression: <input name="expression" /></p>
+      </font>
+      </p>
     <p><input type="submit" value="Calculate" /></p>
   </form>
-</div>
-<br>
-<p style="color:#008080";>Welcome to the web calculator, hope you enjoy this!
-</p>
-<p>Solution:
-  <span th:text="${solution}"></span>
-</p>
+  <br>
+  <br>
+  <br>
+   <font size="4" face="verdana", color = "#008080">
+     <p>Solution:
+       <span th:text="${solution}"></span>
+   </font>
+   </p>
+   </p>
+ </div>
 </body>
 </html>
